@@ -29,10 +29,10 @@ public class Board implements Serializable {
     @Enumerated(EnumType.STRING)
     private BoardType boardType;
 
-    @CreationTimestamp
+//    @CreationTimestamp
     private LocalDateTime createdDate;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     private LocalDateTime updatedDate;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -53,5 +53,13 @@ public class Board implements Serializable {
         this.subTitle = board.getSubTitle();
         this.content = board.getContent();
         this.boardType = board.getBoardType();
+    }
+
+    public void changeCreatedTime() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    public void changeUpdatedTime() {
+        this.updatedDate = LocalDateTime.now();
     }
 }

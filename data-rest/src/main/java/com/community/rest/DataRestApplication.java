@@ -1,5 +1,11 @@
 package com.community.rest;
 
+import com.community.rest.domain.Board;
+import com.community.rest.domain.enums.BoardType;
+import com.community.rest.event.BoardEventHandler;
+import com.community.rest.repository.BoardRepository;
+import com.community.rest.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class DataRestApplication {
@@ -23,6 +30,30 @@ public class DataRestApplication {
     public static void main(String[] args) {
         SpringApplication.run(DataRestApplication.class, args);
     }
+
+    @Bean
+    BoardEventHandler boardEventHandler() {
+        return new BoardEventHandler();
+    }
+
+//    @Bean
+//    public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
+//        return (args) -> {
+//            com.community.rest.domain.User user = userRepository.save(com.community.rest.domain.User.builder()
+//                    .name("havi")
+//                    .password("test")
+//                    .email("havi@gmail.com")
+//                    .build());
+//            IntStream.rangeClosed(1, 200).forEach(index -> 	boardRepository.save(Board.builder()
+//                    .title("게시글"+index)
+//                    .subTitle("순서"+index)
+//                    .content("콘텐츠")
+//                    .boardType(BoardType.free)
+//                    .user(user)
+//                    .build()));
+//
+//        };
+//    }
 
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,9 +64,11 @@ public class DataRestApplication {
         InMemoryUserDetailsManager userDetailsManager() {
             // roles 에 'ADMIN' 권한을 주면 권한을 획득하여 접근이 가능하다.!
             User.UserBuilder commonUser = User.withUsername("mhk").password("{noop}test").roles("USER", "ADMIN");
+            User.UserBuilder havi = User.withUsername("havi").password("{noop}test").roles("USER", "ADMIN");
 
             List<UserDetails> userDetailsList = new ArrayList<>();
             userDetailsList.add(commonUser.build());
+            userDetailsList.add(havi.build());
 
             return new InMemoryUserDetailsManager(userDetailsList);
         }
