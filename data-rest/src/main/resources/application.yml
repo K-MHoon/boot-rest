@@ -1,0 +1,29 @@
+server:
+    port: 8082
+
+spring:
+    h2:
+        console:
+            enabled: false
+    datasource:
+        url: jdbc:mysql://localhost:3306/testdb
+        username: root
+        password: solve#12
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        hibernate:
+        #            ddl-auto: create
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+    data:
+        rest:
+            base-path: /api
+            default-page-size: 10
+            max-page-size: 10
+
+logging:
+    level:
+        org.hibernate.type.descriptor.sql: trace
