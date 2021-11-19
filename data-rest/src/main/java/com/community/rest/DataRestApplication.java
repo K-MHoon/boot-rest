@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -35,25 +36,6 @@ public class DataRestApplication {
     BoardEventHandler boardEventHandler() {
         return new BoardEventHandler();
     }
-
-//    @Bean
-//    public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
-//        return (args) -> {
-//            com.community.rest.domain.User user = userRepository.save(com.community.rest.domain.User.builder()
-//                    .name("havi")
-//                    .password("test")
-//                    .email("havi@gmail.com")
-//                    .build());
-//            IntStream.rangeClosed(1, 200).forEach(index -> 	boardRepository.save(Board.builder()
-//                    .title("게시글"+index)
-//                    .subTitle("순서"+index)
-//                    .content("콘텐츠")
-//                    .boardType(BoardType.free)
-//                    .user(user)
-//                    .build()));
-//
-//        };
-//    }
 
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true)
